@@ -1,6 +1,6 @@
-insert into hospital.room values (1, false, "care room" );
-insert into hospital.room values (2, false, "care room" );
-insert into hospital.room values (3, false, "care room" );
+insert into hospital.room values (1, true, "care room" );
+insert into hospital.room values (2, true, "care room" );
+insert into hospital.room values (3, true, "care room" );
 insert into hospital.room values (4, false, "operation room" );
 insert into hospital.room values (5, false, "operation room" );
 
