@@ -2,7 +2,7 @@ create schema if not exists hospital;
 
 create table hospital.room (
 	room_id      int,
-	occupancy    varchar(20) not null,
+	occupancy    bool,
 	room_type  varchar(20) not null,
 	primary key (room_id)
 );
@@ -74,18 +74,20 @@ create table hospital.doctor (
 );
 
 create table hospital.secretary (
+	secretary_id int, 
 	employee_id int,
 	appointment_id int,
-    primary key (employee_id),
+    primary key (secretary_id),
     foreign key (employee_id) references employee(employee_id),
 	foreign key (appointment_id) references appointment(appointment_id)
 		on delete set null
 );
 
 create table hospital.nurse (
+	nurse_id int, 
 	employee_id int,
 	room_id int,
-    primary key (employee_id),
+    primary key (nurse_id),
 	foreign key (employee_id) references employee(employee_id),
 	foreign key (room_id) references room(room_id)
 		on delete set null
