@@ -17,6 +17,13 @@ create table hospital.address (
 	primary key (address_id)
 );
 
+create table hospital.treatment (
+	treatment_id int,
+	period varchar(20) not null,
+    description    varchar(100) not null,
+	primary key (treatment_id)
+);
+
 create table hospital.patient (
 	patient_id      int,
 	identity_number    int,
@@ -28,8 +35,13 @@ create table hospital.patient (
     admit_date varchar(20) not null,
     discard_date varchar(20) not null,
     room_id int,
+    treatment_id int,
     primary key (patient_id),
 	foreign key (address_id) references address(address_id)
+		on delete set null,
+	foreign key (room_id) references room(room_id)
+		on delete set null,
+	foreign key (treatment_id) references treatment(treatment_id)
 		on delete set null
 );
 
@@ -92,13 +104,3 @@ create table hospital.nurse (
 	foreign key (room_id) references room(room_id)
 		on delete set null
 );
-
-create table hospital.treatment (
-	treatment_id int,
-	period varchar(20) not null,
-    description    varchar(100) not null,
-	primary key (treatment_id)
-);
-
-
-

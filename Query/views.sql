@@ -17,11 +17,19 @@ from hospital.room
 where occupancy=false;
 
 # View: Display Treatments that are not Finished
-# TODO: create view unfinished_treatments ...
+create view unfinished_treatments as
+select hospital.patient.patient_name,
+       hospital.patient.discard_date as 'discard_date(YYYY-MM-DD HH-MM-SS)',
+       hospital.treatment.description,
+       hospital.treatment.period
+from hospital.patient
+inner join hospital.treatment
+on hospital.patient.treatment_id=hospital.treatment.treatment_id
+where hospital.patient.discard_date>CURRENT_TIMESTAMP();
 
 # TESTS
 select * from employee_info;
 select * from patient_admitted;
 select * from current_appointments;
 select * from available_rooms;
-#select * from unfinished_treatments;
+select * from unfinished_treatments;
