@@ -1,16 +1,20 @@
-# Demo note:
-# After running any trigger, you may need to re-initialize records in db.
+# After running any trigger, you may need to re-initialize records in db for testing.
 # i.e. insert old records again after running a delete operation and trigger.
-
 DELIMITER $$
 create trigger hospital.delete_doctor before delete on hospital.doctor
 for each row
 	begin
-		set @address_id = (select address_id from hospital.employee where old.employee_id = hospital.employee.employee_id);
+		set @address_id = (
+			select address_id
+			  from hospital.employee
+			 where old.employee_id = hospital.employee.employee_id);
 		# remove address of the doctor first
 		delete from hospital.address where @address_id=hospital.address.address_id;
 		# remove employee record belongs the doctor
 		delete from hospital.employee where old.employee_id = hospital.employee.employee_id;
+
+		# foreign key (doctor_id) references doctor(doctor_id) on delete set null in patient table
+		# sets value of patient_id attribute to null
 	end$$
 DELIMITER ;
 
