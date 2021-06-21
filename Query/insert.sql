@@ -20,10 +20,6 @@ insert into hospital.treatment values (10001, "One month", "Drug");
 insert into hospital.treatment values (10002, "Three days", "Dental cleaning");
 insert into hospital.treatment values (10003, "One year", "Chemotherapy");
 
-insert into hospital.patient values (3000, 183759101, "John Conner" , "male", 100, 321432424, 907887543, "2010-12-20 14-55-24", "2011-05-08 12-00-24", 1, 10000);
-insert into hospital.patient values (3001, 499088823, "Mary Jane Token" , "female", 101, 343622439, 197287547, "2021-11-11 10-00-04", "2022-11-11 10-10-14", 2, 10001);
-insert into hospital.patient values (3002, 908964332, "John Conner" , "male", 102, 925430489, 56791772, "2022-08-01 22-26-55", "2022-10-01 09-00-00", 3, 10003);
-
 insert into hospital.employee values (1, 96727111, 100, "Cory Hintz", "male",  5000 );
 insert into hospital.employee values (2, 14782051 , 101, "Elsa Sauer", "male",  7000 );
 insert into hospital.employee values (3, 15802472, 102, "Geovanny Beahan Jr.", "male",  3000 );
@@ -35,9 +31,13 @@ insert into hospital.employee values (8, 70485441, 107, "Joanny Beer", "female",
 insert into hospital.employee values (9, 35134161, 108, "Bartholome Dach", "male",  4000 );
 insert into hospital.employee values (10, 20662452, 109, "Kaela Rutherford", "male",  9000 );
 
-insert into hospital.doctor values (200, 1, 3000, "staffed");
-insert into hospital.doctor values (201, 2, 3001, "staffed");
-insert into hospital.doctor values (202, 3, 3002, "contractual");
+insert into hospital.doctor values (200, 1, "staffed");
+insert into hospital.doctor values (201, 2, "staffed");
+insert into hospital.doctor values (202, 3, "contractual");
+
+insert into hospital.patient values (3000, 183759101, "John Conner" , "male", 100, 321432424, 907887543, "2010-12-20 14-55-24", "2011-05-08 12-00-24", 1, 10000, 200);
+insert into hospital.patient values (3001, 499088823, "Mary Jane Token" , "female", 101, 343622439, 197287547, "2021-11-11 10-00-04", "2022-11-11 10-10-14", 2, 10001, 201);
+insert into hospital.patient values (3002, 908964332, "John Conner" , "male", 102, 925430489, 56791772, "2022-08-01 22-26-55", "2022-10-01 09-00-00", 3, 10003, 202);
 
 insert into hospital.nurse values (200, 4, 1);
 insert into hospital.nurse values (201, 5, 2);
