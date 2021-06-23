@@ -1,0 +1,140 @@
+{
+  "availableRooms": [
+    { "roomId": 4, "roomType": "operation" },
+    { "roomId": 5, "roomType": "operation" }
+  ],
+  "doctors": [
+    { "doctorId": 200, "employeeId": 1, "position": "staffed" },
+    { "doctorId": 201, "employeeId": 2, "position": "staffed" },
+    { "doctorId": 202, "employeeId": 3, "position": "contractual" }
+  ],
+  "nurses": [
+    { "nurseId": 200, "employeeId": 4, "roomId": 1 },
+    { "nurseId": 201, "employeeId": 5, "roomId": 2 },
+    { "nurseId": 202, "employeeId": 3, "roomId": 3 },
+    { "nurseId": 203, "employeeId": 7, "roomId": 4 }
+  ],
+  "employees": [
+    {
+      "employeeId": 1,
+      "contactNo": "96727111",
+      "addressId": 100,
+      "employeeName": "Cory Hintz",
+      "sex": "male",
+      "baseSalary": 5000
+    },
+    {
+      "employeeId": 2,
+      "contactNo": "14782051",
+      "addressId": 101,
+      "employeeName": "Elsa Saue",
+      "sex": "male",
+      "baseSalary": 7000
+    },
+    {
+      "employeeId": 3,
+      "contactNo": "15802472",
+      "addressId": 102,
+      "employeeName": "Geovanny Beahan Jr.",
+      "sex": "male",
+      "baseSalary": 3000
+    },
+    {
+      "employeeId": 4,
+      "contactNo": "17034905",
+      "addressId": 103,
+      "employeeName": "Izaiah Orn",
+      "sex": "male",
+      "baseSalary": 4000
+    },
+    {
+      "employeeId": 5,
+      "contactNo": "63158021",
+      "addressId": 104,
+      "employeeName": "Shayne Schimmel DVM",
+      "sex": "female",
+      "baseSalary": 10000
+    },
+    {
+      "employeeId": 6,
+      "contactNo": "19416678",
+      "addressId": 105,
+      "employeeName": "Mariela Klocko DDS",
+      "sex": "male",
+      "baseSalary": 7000
+    },
+    {
+      "employeeId": 7,
+      "contactNo": "19936866",
+      "addressId": 106,
+      "employeeName": "Cordie Emmerich",
+      "sex": "male",
+      "baseSalary": 2500
+    },
+    {
+      "employeeId": 8,
+      "contactNo": "70485441",
+      "addressId": 107,
+      "employeeName": "Joanny Beer",
+      "sex": "female",
+      "baseSalary": 3500
+    },
+    {
+      "employeeId": 9,
+      "contactNo": "35134161",
+      "addressId": 108,
+      "employeeName": "Bartholome Dach",
+      "sex": "male",
+      "baseSalary": 4000
+    },
+    {
+      "employeeId": 10,
+      "contactNo": "20662452",
+      "addressId": 109,
+      "employeeName": "Kaela Rutherford",
+      "sex": "male",
+      "baseSalary": 9000
+    }
+  ],
+  "patients": [
+    {
+      "patientId": 3000,
+      "identityNumber": "183759101",
+      "patientName": "John Conner",
+      "sex": "male",
+      "contactNo": "321432424",
+      "companionNo": "907887543",
+      "admitDate": "2010-12-20 14-55-24",
+      "discardDate": "2011-05-08 12-00-24",
+      "roomId": 1,
+      "treatmentId": 10000,
+      "doctorId": 200
+    },
+    {
+      "patientId": 3001,
+      "identityNumber": "499088823",
+      "patientName": "Mary Jane Token",
+      "sex": "female",
+      "contactNo": "343622439",
+      "companionNo": "197287547",
+      "admitDate": "2021-11-11 10-00-04",
+      "discardDate": "2022-11-11 10-10-14",
+      "roomId": 2,
+      "treatmentId": 10001,
+      "doctorId": 201
+    },
+    {
+      "patientId": 3002,
+      "identityNumber": "908964332",
+      "patientName": "John Conner",
+      "sex": "male",
+      "contactNo": "925430489",
+      "companionNo": "56791772",
+      "admitDate": "2022-08-01 22-26-55",
+      "discardDate": "2022-10-01 09-00-00",
+      "roomId": 3,
+      "treatmentId": 10003,
+      "doctorId": 202
+    }
+  ]
+}

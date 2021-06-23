@@ -46,11 +46,10 @@ create table hospital.doctor (
 );
 
 create table hospital.patient (
-	patient_id      int,
+	patient_id      int AUTO_INCREMENT,
 	identity_number    int,
 	patient_name  varchar(20) not null,
     sex  varchar(20) not null,
-    address_id int,
     contact_no int,
     companion_no int,
     admit_date varchar(20) not null,
@@ -59,8 +58,6 @@ create table hospital.patient (
     treatment_id int,
     doctor_id int,
     primary key (patient_id),
-	foreign key (address_id) references address(address_id)
-		on delete set null,
 	foreign key (room_id) references room(room_id)
 		on delete set null,
 	foreign key (treatment_id) references treatment(treatment_id)
