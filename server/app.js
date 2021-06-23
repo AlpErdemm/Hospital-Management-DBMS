@@ -17,8 +17,11 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-// mock data
-const db = require('./db.json')
+connection.connect(error => {
+  if (error)
+    throw error;
+  console.log("Successfully connected to the database.");
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -26,129 +29,107 @@ app.get('/', (req, res) => {
 
 app.get('/availableRooms', (req, res) => {
   const query = `SELECT * from available_rooms`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      console.log('Fetched succesfully');
-      results = results.map(v => Object.assign({}, v));
-      console.log(results);
-      res.send(JSON.stringify(results));
-    });
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
   });
+
 })
 
 app.get('/doctors', (req, res) => {
   const query = `SELECT * from hospital.doctor`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      console.log('Fetched succesfully');
-      results = results.map(v => Object.assign({}, v));
-      console.log(results);
-      res.send(JSON.stringify(results));
-    });
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
   });
+
   // TODO: res.error
 })
 
 app.get('/nurses', (req, res) => {
   const query = `SELECT * from hospital.nurse`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      console.log('Fetched succesfully');
-      results = results.map(v => Object.assign({}, v));
-      console.log(results);
-      res.send(JSON.stringify(results));
-    });
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
   });
+
 })
 
 app.get('/employees', (req, res) => {
   const query = `SELECT * from hospital.employee`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      console.log('Fetched succesfully');
-      results = results.map(v => Object.assign({}, v));
-      console.log(results);
-      res.send(JSON.stringify(results));
-    });
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
   });
+
 })
 
 app.get('/patients', (req, res) => {
   const query = `SELECT * from hospital.patient`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      console.log('Fetched succesfully');
-      results = results.map(v => Object.assign({}, v));
-      console.log(results);
-      res.send(JSON.stringify(results));
-    });
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
   });
+
 })
 
 app.delete('/doctor', (req, res) => {
   const id = req.query.doctorId;
   const query = `DELETE FROM hospital.doctor WHERE doctor_id=${id}`;
-  connection.connect(function (err) {
+
+  connection.query(query, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, function (err, results) {
-      if (err)
-        throw err;
-      const result = {
-        success: true,
-        message: `Deleted doctor with id=${id} successfully`,
-      }
-      console.log(result.message);
-      res.send(JSON.stringify(result));
-    });
+    const result = {
+      success: true,
+      message: `Deleted doctor with id=${id} successfully`,
+    }
+    console.log(result.message);
+    res.json(result);
   });
+
 })
 
 app.post('/patient', (req, res) => {
   const { patientName, identityNumber, sex, contactNo, companionNo, admitDate, discardDate } = req.body;
   const values = [identityNumber, patientName, sex, contactNo, companionNo, admitDate, discardDate];
   const query = `INSERT INTO hospital.patient (identity_number, patient_name, sex, contact_no, companion_no, admit_date, discard_date) VALUES(?, ?, ?, ?, ?, ?, ?)`;
-  connection.connect(function (err) {
+  connection.query(query, values, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, values, function (err, results) {
-      if (err)
-        throw err;
-      const result = {
-        success: true,
-        message: `Added new patient successfully`,
-      }
-      console.log(result.message);
-      res.send(JSON.stringify(result));
-    });
+    const result = {
+      success: true,
+      message: `Added new patient successfully`,
+    }
+    console.log(result.message);
+    res.json(result);
   });
+
 })
 
 app.put('/patient', (req, res) => {
@@ -156,21 +137,18 @@ app.put('/patient', (req, res) => {
   const { patientName, identityNumber, sex, contactNo, companionNo, admitDate, discardDate } = req.body;
   const values = [identityNumber, patientName, sex, contactNo, companionNo, admitDate, discardDate];
   const query = `UPDATE hospital.patient SET identity_number = ?, patient_name = ?, sex = ?, contact_no = ?, companion_no = ?, admit_date = ?, discard_date = ? WHERE patient_id = ${id}`;
-  connection.connect(function (err) {
+
+  connection.query(query, values, function (err, results) {
     if (err)
       throw err;
-    console.log('Connected succesfully');
-    connection.query(query, values, function (err, results) {
-      if (err)
-        throw err;
-      const result = {
-        success: true,
-        message: `Updated patient with id=${id} successfully`,
-      }
-      console.log(result.message);
-      res.send(JSON.stringify(result));
-    });
+    const result = {
+      success: true,
+      message: `Updated patient with id=${id} successfully`,
+    }
+    console.log(result.message);
+    res.json(result);
   });
+
 })
 
 app.listen(port, () => {
