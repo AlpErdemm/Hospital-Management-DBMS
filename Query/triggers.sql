@@ -18,14 +18,47 @@ for each row
 	end$$
 DELIMITER ;
 
-# Test: delete_doctor
-select * from hospital.doctor;
-select * from hospital.employee;
-select * from hospital.address;
-select * from hospital.patient;
-delete from hospital.doctor where doctor_id=200;
-# Note that address of the doctor is removed and value of the doctor_id attribute becomes null.  
-select * from hospital.doctor;
-select * from hospital.employee;
-select * from hospital.address;
-select * from hospital.patient;
+
+DELIMITER $$
+create trigger hospital.update_room_on_discard before update on hospital.patient
+for each row
+    begin
+        set @current_room_id = (select room_id from hospital.patient where old.patient_id = hospital.patient.patient_id);
+
+        if old.discard_date <= CURDATE() then
+            update hospital.room set room.occupancy=false where room.room_id = @current_room_id;
+        end if;
+    end$$
+DELIMITER ;
+
+DROP TRIGGER if exists hospital.update2;
+DELIMITER $$
+create trigger hospital.update2 before insert on hospital.patient
+for each row
+    begin
+        set @empty_room = (
+            select min(room_id) from hospital.room where occupancy=false
+        );
+
+        if @empty_room is not null then 
+			set new.room_id = @empty_room;
+			update room set room.occupancy=true where room.room_id = @empty_room;
+        end if;
+
+    end$$
+DELIMITER ;
+
+#Set room available after patient delete
+DROP TRIGGER if exists hospital.update_room_on_delete;
+DELIMITER $$
+create trigger hospital.update_room_on_delete before delete on hospital.patient
+for each row
+	begin
+		set @old_patient_id = old.patient_id;
+		set @old_room_id = (select room_id from hospital.patient where patient_id=@old_patient_id);
+		update room set room.occupancy=false where room.room_id = @old_room_id;
+	end$$
+DELIMITER ;
+
+
+

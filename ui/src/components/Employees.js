@@ -61,24 +61,31 @@ const Employees = () => {
     const index = doctorsTemp.indexOf(doctor)
     if (index !== -1) {
       const id = doctorsTemp[index].doctor_id;
-      const requestOptions = {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      fetch(baseURL + `/doctor?doctorId=${id}`, requestOptions)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          if (result.success) {
-            doctorsTemp.splice(index, 1);
-            setDoctors(doctorsTemp);
-          } else {
-            console.log(`Cannot delete doctor with id=${id}`);
-          }
-        },
-        (error) => console.log(error)
-      );
+      const emp_id = doctorsTemp[index].employee_id;
+      const emp_index = employees.findIndex((e) => e.employee_id === emp_id)
+      const employeesTemp = [...employees];
+      if (emp_index !== -1){
+        const requestOptions = {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        };
+        fetch(baseURL + `/doctor?doctorId=${id}`, requestOptions)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result);
+            if (result.success) {
+              doctorsTemp.splice(index, 1);
+              employeesTemp.splice(emp_index, 1);
+              setDoctors(doctorsTemp);
+              setEmployees(employeesTemp);
+            } else {
+              console.log(`Cannot delete doctor with id=${id}`);
+            }
+          },
+          (error) => console.log(error)
+        );
+      }
     }
   };
 

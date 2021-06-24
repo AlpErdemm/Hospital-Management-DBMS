@@ -18,7 +18,8 @@ where occupancy=false;
 
 # View: Display Treatments that are not Finished
 create view unfinished_treatments as
-select hospital.patient.patient_name,
+select hospital.treatment.treatment_id,
+	hospital.patient.patient_name,
        hospital.patient.discard_date as 'discard_date(YYYY-MM-DD HH-MM-SS)',
        hospital.treatment.description,
        hospital.treatment.period

@@ -3,6 +3,7 @@ insert into hospital.room values (2, true, "care room" );
 insert into hospital.room values (3, true, "care room" );
 insert into hospital.room values (4, false, "operation room" );
 insert into hospital.room values (5, false, "operation room" );
+insert into hospital.room values (6, false, "care room" );
 
 insert into hospital.address values (100, "Los Angeles" , "Siettle", "Downwards", 5, 2);
 insert into hospital.address values (101, "Los Angeles" , "New Cattle", "Downwards", 9, 3);

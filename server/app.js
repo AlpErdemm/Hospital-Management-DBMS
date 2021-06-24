@@ -47,6 +47,47 @@ app.get('/availableRooms', (req, res) => {
 
 })
 
+app.get('/addresses', (req, res) => {
+  const query = `SELECT * from address`;
+
+  connection.query(query, function (err, results) {
+    if (err)
+      throw err;
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
+  });
+
+})
+
+app.get('/unfinishedTreatment', (req, res) => {
+  const query = `select * from unfinished_treatments;`;
+
+  connection.query(query, function (err, results) {
+    if (err)
+      throw err;
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
+  });
+
+})
+
+app.get('/treatment', (req, res) => {
+  const query = `SELECT * from treatment`;
+
+  connection.query(query, function (err, results) {
+    if (err)
+      throw err;
+    console.log('Fetched succesfully');
+    results = results.map(v => Object.assign({}, v));
+    console.log(results);
+    res.json(results);
+  });
+})
+
 app.get('/doctors', (req, res) => {
   const query = `SELECT * from hospital.doctor`;
 
