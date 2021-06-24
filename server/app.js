@@ -9,13 +9,19 @@ let connection = mysql.createConnection({
 });
 
 const app = express()
-const port = 3000
+const port = 3001
 
 // add these to get request body
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  next();
+});
 
 connection.connect(error => {
   if (error)
@@ -103,14 +109,17 @@ app.delete('/doctor', (req, res) => {
   const query = `DELETE FROM hospital.doctor WHERE doctor_id=${id}`;
 
   connection.query(query, function (err, results) {
-    if (err)
-      throw err;
-    const result = {
-      success: true,
-      message: `Deleted doctor with id=${id} successfully`,
+    if (err) {
+      console.log(err.message);
+      res.json({ success: false, message: 'Error when deleting doctor' });
+    } else {
+      const result = {
+        success: true,
+        message: `Deleted doctor with id=${id} successfully`,
+      }
+      console.log(result.message);
+      res.json(result);
     }
-    console.log(result.message);
-    res.json(result);
   });
 
 })
@@ -119,15 +128,18 @@ app.post('/patient', (req, res) => {
   const { patientName, identityNumber, sex, contactNo, companionNo, admitDate, discardDate } = req.body;
   const values = [identityNumber, patientName, sex, contactNo, companionNo, admitDate, discardDate];
   const query = `INSERT INTO hospital.patient (identity_number, patient_name, sex, contact_no, companion_no, admit_date, discard_date) VALUES(?, ?, ?, ?, ?, ?, ?)`;
-  connection.query(query, values, function (err, results) {
-    if (err)
-      throw err;
-    const result = {
-      success: true,
-      message: `Added new patient successfully`,
+  connection.query(query, values, function (err) {
+    if (err) {
+      console.log(err.message);
+      res.json({ success: false, message: 'Error when inserting patient' });
+    } else {
+      const result = {
+        success: true,
+        message: `Added new patient successfully`,
+      }
+      console.log(result.message);
+      res.json(result);
     }
-    console.log(result.message);
-    res.json(result);
   });
 
 })
@@ -138,15 +150,19 @@ app.put('/patient', (req, res) => {
   const values = [identityNumber, patientName, sex, contactNo, companionNo, admitDate, discardDate];
   const query = `UPDATE hospital.patient SET identity_number = ?, patient_name = ?, sex = ?, contact_no = ?, companion_no = ?, admit_date = ?, discard_date = ? WHERE patient_id = ${id}`;
 
-  connection.query(query, values, function (err, results) {
-    if (err)
-      throw err;
-    const result = {
-      success: true,
-      message: `Updated patient with id=${id} successfully`,
+  connection.query(query, values, function (err) {
+    if (err) {
+      console.log(err.message);
+      res.json({ success: false, message: 'Error when updating patient' });
     }
-    console.log(result.message);
-    res.json(result);
+    else {
+      const result = {
+        success: true,
+        message: `Updated patient with id=${id} successfully`,
+      }
+      console.log(result.message);
+      res.json(result);
+    }
   });
 
 })
